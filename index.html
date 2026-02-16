@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>幸运抽签</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+background: #f8f9fa;
+text-align: center;
+padding: 20px;
+font-family: sans-serif;
+}
+
+.author{
+text-align: right;
+font-family: KaiTi,STKaiti,serif;
+font-size: 20px;
+color: #ffd700;
+font-style: italic;
+transform: rotate(15deg);
+margin: 10px 10px 30px auto;
+width: fit-content;
+text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.award-box{
+background: white;
+padding: 12px;
+border-radius: 10px;
+text-align: left;
+font-size: 14px;
+margin: 0 auto 25px auto;
+width: fit-content;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.lottery{
+background: white;
+padding: 30px 20px;
+border-radius: 20px;
+margin: 0 auto;
+max-width: 320px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.title{
+font-size: 24px;
+margin-bottom: 20px;
+color: #333;
+}
+
+#show{
+background: linear-gradient(90deg, #ff5e62, #ff9966);
+color: white;
+padding: 20px;
+border-radius: 12px;
+font-size: 20px;
+margin-bottom: 20px;
+min-height: 60px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.btn{
+background: #ff477e;
+color: white;
+border: none;
+padding: 15px;
+font-size: 18px;
+border-radius: 50px;
+width: 100%;
+cursor: pointer;
+}
+
+#modal{
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.5);
+align-items: center;
+justify-content: center;
+z-index: 9999;
+}
+
+.modal-body{
+background: white;
+padding: 30px;
+border-radius: 16px;
+width: 80%;
+max-width: 300px;
+}
+
+.tip{
+color: #ff477e;
+font-weight: bold;
+margin: 12px 0;
+font-size: 16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="author">柳寻澈制作</div>
+
+<div class="award-box">
+特等奖：520元<br>
+一等奖：52元<br>
+二等奖：9.99元<br>
+三等奖：6.66元<br>
+安慰奖：5.55元
+</div>
+
+<div class="lottery">
+<div class="title">幸运抽签</div>
+<div id="show">等待抽奖</div>
+<button class="btn" onclick="goDraw()">点击抽签</button>
+</div>
+
+<div id="modal">
+<div class="modal-body">
+<div id="resultTxt" style="font-size:18px; margin-bottom:10px;"></div>
+<div class="tip">记得截图给寻澈大王</div>
+<button class="btn" onclick="closeModal()">确定</button>
+</div>
+</div>
+
+<script>
+var drawing = false;
+
+function goDraw() {
+if (drawing) return;
+drawing = true;
+
+var s = document.getElementById("show");
+s.innerText = "抽奖中...";
+
+setTimeout(function() {
+var r = Math.random() * 100;
+var prize;
+
+if (r < 0) {
+prize = "特等奖 520元";
+} else if (r < 0.001) {
+prize = "一等奖 52元";
+} else if (r < 5.001) {
+prize = "二等奖 9.99元";
+} else if (r < 7.001) {
+prize = "三等奖 6.66元";
+} else {
+prize = "安慰奖 5.55元";
+}
+
+s.innerText = prize;
+document.getElementById("resultTxt").innerText = "恭喜获得：" + prize;
+document.getElementById("modal").style.display = "flex";
+drawing = false;
+}, 1200);
+}
+
+function closeModal() {
+document.getElementById("modal").style.display = "none";
+}
+</script>
+</body>
+</html>
